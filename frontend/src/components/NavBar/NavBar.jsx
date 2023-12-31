@@ -19,7 +19,7 @@ function NavBar() {
         navigate("/cart");
     };
 
-    
+
     const login = () => {
         navigate("/login");
     };
@@ -48,4 +48,4 @@ function NavBar() {
     )
 }
 
-export default NavBar
+export default NavBar;

@@ -1,10 +1,15 @@
 import React from 'react';
 import "./Product.css";
 
-function Product() {
+function Product({ img, title, price }) {
     return (
-        <div>
-            <h1>Product</h1>
+        <div className="product">
+            <img src={img} alt="" />
+            <div className="detail">
+                <h4 className="name">{title}</h4>
+                <h3 className="price">$ {price}</h3>
+                <button className="remove">Remove from cart</button>
+            </div>
         </div>
     )
 }
