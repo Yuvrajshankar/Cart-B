@@ -97,3 +97,26 @@ export const logout = async (req, res, next) => {
         next(error);
     }
 };
+
+//getUserData
+export const getUserData = async (req, res, next) => {
+    try {
+        const admin = req.admin;
+
+        if (!admin) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+
+        // Exclude sensitive information like password
+        const userData = {
+            firstName: admin.firstName,
+            lastName: admin.lastName,
+            mobileNumber: admin.mobileNumber,
+            email: admin.email,
+        };
+
+        res.status(200).json({ user: userData });
+    } catch (error) {
+        next(error);
+    }
+};

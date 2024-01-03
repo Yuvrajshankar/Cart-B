@@ -89,3 +89,25 @@ export const logout = async (req, res, next) => {
         next(error);
     }
 };
+
+
+// get user-data
+export const getUserData = async (req, res, next) => {
+    try {
+        const user = req.user;
+
+        if (!user) {
+            return res.status(404).json({ message: "User not Found" });
+        }
+
+        const userData = {
+            name: user.name,
+            email: user.email,
+            cart: user.cart,
+            Bought: user.Bought,
+        };
+        res.status(200).json({ user: userData });
+    } catch (error) {
+        next(error)
+    }
+};

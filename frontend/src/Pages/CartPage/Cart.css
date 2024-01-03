@@ -15,10 +15,13 @@
 
 .product__buy {
   display: flex;
-  justify-content: space-evenly
 }
 
-
+.cart {
+  width: 100vh;
+  height: 10vh;
+  text-align: center;
+}
 .right__side .buy__container {
   margin-left: 50%;
   width: 15vw;

@@ -38,8 +38,7 @@ function NavBar() {
                 </div>
 
                 <div className="nav__options">
-                    <h4 className='name'>YUVRAJ</h4>
-                    <h4 onClick={sell}>Become a Seller</h4>
+                    <h4 onClick={sell} style={{ color: '#ff7f00', cursor: 'pointer' }}>Seller!</h4>
                     <h4 onClick={login}>Log in</h4>
                     <ShoppingCartIcon className='cart' onClick={cart} />
                 </div>

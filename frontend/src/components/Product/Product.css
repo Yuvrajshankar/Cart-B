@@ -2,7 +2,9 @@
   background-color: #fff;
   border-radius: 8px;
   padding: 10px;
-  cursor: pointer;
+  width: 100vh;
+  /* background-color: red; */
+  /* cursor: pointer; */
   display: flex;
   align-items: center;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
@@ -25,6 +27,7 @@
 .product .detail {
   display: flex;
   flex-direction: column;
+  width: 80vh;
 }
 
 .detail h4 {

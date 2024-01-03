@@ -1,12 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "./DashBoard.css";
 import AddIcon from '@mui/icons-material/Add';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 function DashBoard() {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3030/product', { withCredentials: true });
+      setProducts(response.data.products || []);
+    } catch (err) {
+      if (err.response) {
+        console.error(err.response.data.message);
+      } else {
+        console.error('Error during registration:', err.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3030/product/delete/${productId}`, { withCredentials: true });
+
+      if (response.status === 200) {
+        console.log('Product deleted successfully:', response.data.message);
+        fetchProducts();
+      } else {
+        console.error('Failed to delete product:', response.data.message);
+      }
+    } catch (err) {
+      console.error('Error deleting product:', err.message);
+    }
+  };
 
   const create = () => {
     navigate("/createProduct");
@@ -14,12 +48,28 @@ function DashBoard() {
 
   const profile = () => {
     navigate("/profile");
-  }
+  };
+
+  // Function to group products by category
+  const groupProductsByCategory = (products) => {
+    const groupedProducts = {};
+    products.forEach((product) => {
+      const category = product.category;
+      if (!groupedProducts[category]) {
+        groupedProducts[category] = [];
+      }
+      groupedProducts[category].push(product);
+    });
+    return groupedProducts;
+  };
+
+  const groupedProducts = groupProductsByCategory(products);
+
   return (
     <div className="dash__board">
       <div className="biodata">
         <div className="bio">
-          <h2>Hello, yuvraj pandar</h2>
+          <h2>Hello,</h2>
           <div className="option">
             <div className="create" onClick={create}>
               <AddIcon />
@@ -32,9 +82,7 @@ function DashBoard() {
           </div>
         </div>
 
-
         <div className="container__row">
-
           <div className="container">
             <p>Total income</p>
             <h3>$600</h3>
@@ -45,114 +93,39 @@ function DashBoard() {
           </div>
           <div className="container">
             <p>Total Products</p>
-            <h3>15</h3>
+            <h3>{products.length}</h3>
           </div>
-
         </div>
         <h1>Your products</h1>
       </div>
 
-
       <div className="product__rows">
-
-        <div className="category">
-          <h3>Electronics</h3>
-          <div className="product__list">
-
-            <div className="products">
-              <div className="product">
-                <DeleteOutlineIcon className='delete' />
-                <div className="product__details">
-                  <img src="https://m.media-amazon.com/images/I/51qzMqTzAyL._AC_SY200_.jpg" alt="" />
-                  <div className="details">
-                    <h3>Mixture</h3>
-                    <h3>$15</h3>
+        {Object.keys(groupedProducts).map((category) => (
+          <div key={category} className="category">
+            <h3>{category}</h3>
+            <div className="product__list">
+              {groupedProducts[category].map((product) => (
+                <div key={product._id} className="products">
+                  <div className="productss">
+                    <DeleteOutlineIcon className='delete' onClick={() => handleDeleteProduct(product._id)} />
+                    <Link to={`/updateProduct/${product._id}`}>
+                      <div className="product__details">
+                        <img src={`http://localhost:3030/images/${product.image}`} alt="" />
+                        <div className="details">
+                          <h3>{product.title}</h3>
+                          <h3>${product.price}</h3>
+                        </div>
+                      </div>
+                    </Link>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="products">
-              <div className="product">
-                <DeleteOutlineIcon className='delete' />
-                <div className="product__details">
-                  <img src="https://m.media-amazon.com/images/I/51qzMqTzAyL._AC_SY200_.jpg" alt="" />
-                  <div className="details">
-                    <h3>Mixture</h3>
-                    <h3>$15</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="products">
-              <div className="product">
-                <DeleteOutlineIcon className='delete' />
-                <div className="product__details">
-                  <img src="https://m.media-amazon.com/images/I/51qzMqTzAyL._AC_SY200_.jpg" alt="" />
-                  <div className="details">
-                    <h3>Mixture</h3>
-                    <h3>$15</h3>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-
-        </div>
-
-
-        <div className="category">
-          <h3>Clothes</h3>
-          <div className="product__list">
-            <div className="products">
-              <div className="product">
-                <DeleteOutlineIcon className='delete' />
-                <div className="product__details">
-                  <img src="https://m.media-amazon.com/images/I/61PUjQcCY9L._AC_SY200_.jpg" alt="" />
-                  <div className="details">
-                    <h3>Mixture</h3>
-                    <h3>$15</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="products">
-              <div className="product">
-                <DeleteOutlineIcon className='delete' />
-                <div className="product__details">
-                  <img src="https://m.media-amazon.com/images/I/61PUjQcCY9L._AC_SY200_.jpg" alt="" />
-                  <div className="details">
-                    <h3>Mixture</h3>
-                    <h3>$15</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="products">
-              <div className="product">
-                <DeleteOutlineIcon className='delete' />
-                <div className="product__details">
-                  <img src="https://m.media-amazon.com/images/I/61PUjQcCY9L._AC_SY200_.jpg" alt="" />
-                  <div className="details">
-                    <h3>Mixture</h3>
-                    <h3>$15</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-
+        ))}
       </div>
-
-    </div>
-  )
+    </div >
+  );
 }
 
-export default DashBoard
+export default DashBoard;

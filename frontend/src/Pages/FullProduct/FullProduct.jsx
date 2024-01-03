@@ -1,29 +1,81 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./FullProduct.css";
 import ProductPage from '../../components/ProductPage/ProductPage'
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function FullProduct() {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const [product, setProduct] = useState({
+        img: '',
+        title: '',
+        description: '',
+        price: '',
+        category: '',
+        stock: '',
+    });
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3030/products/${id}`);
+                setProduct(response.data.product || {});
+            } catch (err) {
+                console.error('Error during fetching product:', err.message);
+            }
+        };
+        fetchProduct();
+    }, []);
+
+    const addToCart = async () => {
+        try {
+            const response = await axios.post(`http://localhost:3030/products/cart/add/${id}`, {}, { withCredentials: true });
+
+            if (response.status === 200) {
+                console.log('Product added to cart successfully:', response.data.message);
+                navigate('/cart')
+            } else {
+                console.error('Failed to add product to cart:', response.data.message);
+            }
+        } catch (err) {
+            console.error('Error adding product to cart:', err.message);
+        }
+    };
+
+    const buyNow = async () => {
+        try {
+            const response = await axios.post(`http://localhost:3030/products/buy/${id}`, {}, { withCredentials: true });
+
+            if (response.status === 200) {
+                console.log('Product purchased successfully:', response.data.message);
+                alert('You successfully purchased the product and it will be delivered to your list.');
+            } else {
+                console.error('Failed to purchase product:', response.data.message);
+            }
+        } catch (err) {
+            console.error('Error purchasing product:', err.message);
+        }
+    };
+
+
     return (
         <div className='fullProduct'>
             <div className="page">
                 <div className="product__details">
                     <ProductPage
-                        img="https://m.media-amazon.com/images/I/813f7EsLzTL._AC_SY200_.jpg"
-                        title="The Children's Place Baby Boys' Long Sleeve Sports Graphic T-Shirt"
-                        price="200"
-                        description="GRAPHIC T-SHIRT — A classic, comfortable fit with graphics she'll love.
-                    FABRIC — Made of 100% cotton jersey
-                    DESIGN — Features long sleeves, rib-knit crew neck and cat in stocking graphic design at front
-                    STYLE — Pair with his favorite jeans or pants for an easy, everyday look!
-                    THE CHILDREN'S PLACE — We offer a huge selection of kid's clothing! Shop us for jeans, shorts, leggings, chinos, polo shirts, dresses, pajamas, and accessories."
-                        category="Furniture"
-                        stock="1500"
+                        img={`http://localhost:3030/images/${product.image}`}
+                        title={product.title}
+                        price={product.price}
+                        description={product.description}
+                        category={product.category}
+                        stock={product.stock}
                     />
                 </div>
 
                 <div className="buttons">
-                    <button>Add to Cart</button>
-                    <button>Buy</button>
+                    <button onClick={addToCart}>Add to Cart</button>
+                    <button onClick={buyNow}>Buy</button>
                 </div>
             </div>
         </div>

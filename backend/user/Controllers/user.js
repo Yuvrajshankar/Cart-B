@@ -79,3 +79,66 @@ export const removeFromCart = async (req, res, next) => {
         next(error);
     }
 };
+
+//buy now
+export const buyNow = async (req, res, next) => {
+    try {
+        const { productId } = req.params;
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (productId === 'move-all') {
+            // Move all products from the cart to the Bought list
+            user.Bought.push(...user.cart.map(item => ({ productId: item.productId, quantity: item.quantity })));
+            user.cart = []; // Clear the cart
+
+            await user.save();
+
+            return res.status(200).json({
+                user,
+                message: 'All products moved to the Bought list successfully.',
+            });
+        } else {
+            // Add the product directly to the Bought list
+            user.Bought.push({ productId, quantity: 1 });
+            await user.save();
+
+            return res.status(200).json({
+                user,
+                message: 'Product bought successfully.',
+            });
+        }
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+// export const buyNow = async (req, res, next) => {
+//     try {
+//         const { productId } = req.params;
+//         const userId = req.user._id;
+
+//         const user = await User.findById(userId);
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+
+//         // Add the product directly to the Bought list
+//         user.Bought.push({ productId, quantity: 1 });
+
+//         // Save the updated user document
+//         await user.save();
+
+//         return res.status(200).json({
+//             user,
+//             message: 'Product bought successfully.',
+//         });
+//     } catch (error) {
+//         next(error);
+//     }
+// };

@@ -1,7 +1,9 @@
 .productPage {
   padding: 15px;
   margin: 0 auto;
-  max-width: 1200px;
+  width: 1200px;
+  /* max-width: 1200px; */
+  /* background-color: #007bff; */
 }
 
 .fullProduct {
@@ -13,8 +15,8 @@
 }
 
 .fullProduct img {
-  max-width: 100%;
-  height: auto;
+  width: 30vh;
+  height: 10vw;
   border-radius: 8px;
   margin-right: 20px;
 }

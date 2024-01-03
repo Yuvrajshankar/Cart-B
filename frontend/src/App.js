@@ -24,11 +24,10 @@ function App() {
           <Route path='/' element={<>
             <NavBar />
             <Home />
-            <Footer />
           </>} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/product' element={<>
+          <Route path='/product/:id' element={<>
             <NavBar />
             <FullProduct />
           </>} />
@@ -44,11 +43,10 @@ function App() {
           <Route path='/dashboard' element={<>
             <NavBar />
             <DashBoard />
-            <Footer />
           </>} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/createProduct' element={<CreateProduct />} />
-          <Route path='/updateProduct' element={<UpdateProduct />} />
+          <Route path='/updateProduct/:id' element={<UpdateProduct />} />
           <Route path='*' element={<Error />} />
         </Routes>
       </div>
