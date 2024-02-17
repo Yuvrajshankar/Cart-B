@@ -1,0 +1,23 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.error h1 {
+  font-size: 5rem;
+  margin-bottom: 10px;
+}
+
+.error h6 {
+  font-size: 1rem;
+}
+
+.error span {
+  color: #ff7f00; /* or any other color you prefer */
+  cursor: pointer;
+  text-decoration: underline;
+}

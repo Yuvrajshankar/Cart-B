@@ -1,0 +1,74 @@
+.update-product-form {
+  background-color: #f9f9f9;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.update-product-form .close-icon {
+  position: absolute;
+  top: 100px;
+  right: 560px;
+  cursor: pointer;
+  color: #555;
+}
+
+.update-product-form h2 {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff7f00;
+  color: #333;
+}
+
+.update-product-form form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.update-product-form form label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.update-product-form form input,
+.update-product-form form textarea,
+.update-product-form form select {
+  width: 95%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  outline: none;
+}
+
+.update-product-form form input:focus,
+.update-product-form form textarea:focus,
+.update-product-form form select:focus {
+  border: 1px solid #ff7f00;
+}
+
+.update-product-form form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff7f00;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.update-product-form form button:hover {
+  background-color: #bd650d;
+  font-weight: 500;
+}

@@ -1,0 +1,92 @@
+.ad__register {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ad__register h1 {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff7f00;
+  color: #333;
+}
+
+.ad__register .navigate {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.ad__register .navigate span {
+  font-size: 15px;
+  color: #ff7f00;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ad__register .ad__formdata {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.ad__register .ad__formdata .ad__form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.ad__register .ad__formdata .ad__form label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.ad__register .ad__formdata .ad__form input {
+  width: 93%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  outline: none;
+}
+
+.ad__register .ad__formdata .ad__form input:focus {
+  border: 1px solid #ff7f00;
+}
+
+.ad__register .ad__formdata .terms {
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ad__register .ad__formdata button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff7f00;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ad__register .ad__formdata button:hover {
+  background-color: #bd650d;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .ad__register .ad__formdata {
+    width: 80%;
+  }
+}
