@@ -3,6 +3,8 @@ import "./FullProduct.css";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductPage from '../../components/ProductPage/ProductPage';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function FullProduct() {
   const navigate = useNavigate();
@@ -39,7 +41,11 @@ function FullProduct() {
         console.error('Failed to add product to cart:', response.data.message);
       }
     } catch (err) {
-      console.error('Error adding product to cart:', err.message);
+      if (err.response && err.response.status === 401) {
+        toast.error('Please Login.');
+      } else {
+        console.error('Error adding product to cart:', err.message);
+      }
     }
   };
 
@@ -54,13 +60,18 @@ function FullProduct() {
         console.error('Failed to purchase product:', response.data.message);
       }
     } catch (err) {
-      console.error('Error purchasing product:', err.message);
+      if (err.response && err.response.status === 401) {
+        toast.error('Please Login.');
+      } else {
+        console.error('Error purchasing product:', err.message);
+      }
     }
   };
 
 
   return (
     <div className='fullProduct'>
+      <ToastContainer />
 
       <div className="page">
 
