@@ -1,5 +1,5 @@
 .cart__page {
-  min-height: 100vh;
+  min-height: fit-content;
 }
 
 .page__details {
@@ -19,7 +19,7 @@
 }
 
 .cart {
-  width: 100vh;
+  /* width: 100vh; */
   height: 10vh;
   text-align: center;
 }
