@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Admin from "../Schema/Admin.js";
+import Admin from "../schema/Admin.js";
 
 export const verifyToken = async (req, res, next) => {
     const AdminToken = req.cookies.admin_jwt;
